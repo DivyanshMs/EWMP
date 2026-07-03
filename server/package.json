@@ -4,7 +4,8 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "dev": "nodemon server.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "seed:auth": "node scripts/seedAuth.js"
   },
   "description": "Enterprise Workforce Management Platform - Backend API",
   "type": "commonjs",

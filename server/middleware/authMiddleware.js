@@ -10,19 +10,23 @@
  */
 
 const { verifyAccessToken } = require('../utils/generateToken');
-const AppError = require('../utils/AppError');
+const { UnauthorizedError } = require('../utils/AppError');
+const { ERROR_CODES } = require('../config/constants');
 
 /**
  * verifyToken middleware
  * Extracts JWT from Authorization header, verifies, and attaches decoded payload to req.user.
- * @throws {AppError} 401 if token is missing, invalid, or expired
+ * @throws {UnauthorizedError} 401 if token is missing, invalid, or expired
  */
 const verifyToken = (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
 
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      throw new AppError(401, 'Authentication required. Please log in.', 'TOKEN_MISSING');
+      throw new UnauthorizedError(
+        'Authentication required. Please log in.',
+        ERROR_CODES.TOKEN_MISSING
+      );
     }
 
     const token = authHeader.split(' ')[1];
@@ -33,6 +37,7 @@ const verifyToken = (req, res, next) => {
       userId: decoded.userId,
       role: decoded.role,
       organizationId: decoded.organizationId,
+      employeeId: decoded.employeeId || null,
     };
 
     next();

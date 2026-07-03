@@ -9,6 +9,8 @@
  */
 
 const nodemailer = require('nodemailer');
+const config = require('../config/config');
+const logger = require('../config/logger');
 
 /**
  * Creates a configured Nodemailer transport.
@@ -16,12 +18,12 @@ const nodemailer = require('nodemailer');
  */
 const createTransport = () => {
   return nodemailer.createTransport({
-    host: process.env.EMAIL_HOST,
-    port: parseInt(process.env.EMAIL_PORT, 10),
-    secure: parseInt(process.env.EMAIL_PORT, 10) === 465,
+    host: config.email.host,
+    port: config.email.port,
+    secure: config.email.port === 465,
     auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
+      user: config.email.user,
+      pass: config.email.pass,
     },
   });
 };
@@ -36,17 +38,31 @@ const createTransport = () => {
  * @returns {Promise<void>}
  */
 const sendEmail = async ({ to, subject, html, text }) => {
-  const transporter = createTransport();
+  try {
+    const transporter = createTransport();
 
-  const mailOptions = {
-    from: `"EWMP Platform" <${process.env.EMAIL_FROM}>`,
-    to,
-    subject,
-    html,
-    text: text || html.replace(/<[^>]*>/g, ''),
-  };
+    const mailOptions = {
+      from: `"EWMP Platform" <${config.email.from}>`,
+      to,
+      subject,
+      html,
+      text: text || html.replace(/<[^>]*>/g, ''),
+    };
 
-  await transporter.sendMail(mailOptions);
+    if (config.env === 'test' || !config.email.host) {
+      logger.info(`[Email Stub] To: ${to} | Subject: ${subject}`);
+      return;
+    }
+
+    await transporter.sendMail(mailOptions);
+    logger.info(`Email sent successfully to ${to}`);
+  } catch (error) {
+    logger.error(`Failed to send email to ${to}: ${error.message}`, { error });
+    // Do not crash transaction if email fails in dev/test, but log error
+    if (config.env === 'production') {
+      throw error;
+    }
+  }
 };
 
 module.exports = sendEmail;

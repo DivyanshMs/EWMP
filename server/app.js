@@ -69,7 +69,7 @@ app.get('/api/health', healthHandler);
 // Follow DEVELOPMENT_ORDER.md Section 10 for implementation sequence.
 
 // Phase 3 — Authentication & User Management
-// app.use('/api/auth', require('./routes/authRoutes'));
+app.use('/api/auth', require('./routes/authRoutes'));
 
 // Phase 4A — Organization & Employees
 // app.use('/api/organizations', require('./routes/organizationRoutes'));
