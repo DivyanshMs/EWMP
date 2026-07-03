@@ -1,47 +1,52 @@
 {
-    "scripts": {
-        "lint:fix": "eslint . --ext .js --fix",
-        "lint": "eslint . --ext .js",
-        "dev": "nodemon server.js",
-        "start": "node server.js"
-    },
-    "description": "Enterprise Workforce Management Platform - Backend API",
-    "type": "commonjs",
-    "version": "1.0.0",
-    "author": "EWMP Engineering Team",
-    "engines": {
-        "node": ">=18.0.0"
-    },
-    "name": "ewmp-server",
-    "main": "server.js",
-    "license": "MIT",
-    "keywords": [
-        "ewmp",
-        "workforce",
-        "management",
-        "express",
-        "mongodb"
-    ],
-    "dependencies": {
-        "@google/generative-ai": "^0.24.1",
-        "bcryptjs": "^3.0.3",
-        "cloudinary": "^2.10.0",
-        "cookie-parser": "^1.4.7",
-        "cors": "^2.8.6",
-        "dotenv": "^17.4.2",
-        "express": "^5.2.1",
-        "express-rate-limit": "^8.5.2",
-        "helmet": "^8.2.0",
-        "jsonwebtoken": "^9.0.3",
-        "mongoose": "^9.7.3",
-        "morgan": "^1.11.0",
-        "multer": "^2.2.0",
-        "nodemailer": "^9.0.3",
-        "uuid": "^14.0.1",
-        "zod": "^4.4.3"
-    },
-    "devDependencies": {
-        "eslint": "^10.6.0",
-        "nodemon": "^3.1.14"
-    }
+  "scripts": {
+    "lint:fix": "eslint . --fix",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "dev": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "description": "Enterprise Workforce Management Platform - Backend API",
+  "type": "commonjs",
+  "version": "1.0.0",
+  "author": "EWMP Engineering Team",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "name": "ewmp-server",
+  "main": "server.js",
+  "license": "MIT",
+  "keywords": [
+    "ewmp",
+    "workforce",
+    "management",
+    "express",
+    "mongodb"
+  ],
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "bcryptjs": "^3.0.3",
+    "cloudinary": "^2.10.0",
+    "compression": "^1.8.1",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.5.2",
+    "helmet": "^8.2.0",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.7.3",
+    "morgan": "^1.11.0",
+    "multer": "^2.2.0",
+    "nodemailer": "^9.0.3",
+    "uuid": "^14.0.1",
+    "winston": "^3.19.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.6.0",
+    "nodemon": "^3.1.14",
+    "prettier": "^3.9.4"
+  }
 }

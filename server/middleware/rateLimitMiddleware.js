@@ -10,6 +10,7 @@
 
 const rateLimit = require('express-rate-limit');
 const { sendError } = require('../utils/formatResponse');
+const { ERROR_CODES } = require('../config/constants');
 
 /**
  * Standard API rate limiter.
@@ -23,7 +24,7 @@ const apiRateLimiter = rateLimit({
   legacyHeaders: false,
   handler: (req, res) => {
     return sendError(res, 429, 'Too many requests. Please try again in a moment.', {
-      code: 'RATE_LIMIT_EXCEEDED',
+      code: ERROR_CODES.RATE_LIMIT_EXCEEDED,
       retryAfterSeconds: 60,
     });
   },
@@ -40,15 +41,10 @@ const authRateLimiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
   handler: (req, res) => {
-    return sendError(
-      res,
-      429,
-      'Too many authentication attempts. Please try again later.',
-      {
-        code: 'RATE_LIMIT_EXCEEDED',
-        retryAfterSeconds: 900,
-      }
-    );
+    return sendError(res, 429, 'Too many authentication attempts. Please try again later.', {
+      code: ERROR_CODES.RATE_LIMIT_EXCEEDED,
+      retryAfterSeconds: 900,
+    });
   },
 });
 
@@ -62,10 +58,15 @@ const aiRateLimiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
   handler: (req, res) => {
-    return sendError(res, 429, 'AI rate limit exceeded. Please wait before sending another query.', {
-      code: 'RATE_LIMIT_EXCEEDED',
-      retryAfterSeconds: 60,
-    });
+    return sendError(
+      res,
+      429,
+      'AI rate limit exceeded. Please wait before sending another query.',
+      {
+        code: ERROR_CODES.RATE_LIMIT_EXCEEDED,
+        retryAfterSeconds: 60,
+      }
+    );
   },
 });
 

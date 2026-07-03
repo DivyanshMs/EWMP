@@ -8,16 +8,21 @@
  */
 
 const cloudinary = require('cloudinary').v2;
+const config = require('./config');
+const { logInfo } = require('../utils/loggerHelper');
 
 const configureCloudinary = () => {
+  if (!config.cloudinary.cloudName || !config.cloudinary.apiKey || !config.cloudinary.apiSecret) {
+    return;
+  }
   cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
+    cloud_name: config.cloudinary.cloudName,
+    api_key: config.cloudinary.apiKey,
+    api_secret: config.cloudinary.apiSecret,
     secure: true,
   });
 
-  console.log('✅ Cloudinary configured');
+  logInfo('✅ Cloudinary configured');
 };
 
 module.exports = { cloudinary, configureCloudinary };

@@ -2,4 +2,3 @@
 // Implements: API_SPECIFICATION.md Section 7.9–7.10
 
 module.exports = {};
-

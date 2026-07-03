@@ -7,6 +7,8 @@
  * Authority: ARCHITECTURE_REVISION.md Section 7.3
  */
 
+const { logInfo, logError } = require('../utils/loggerHelper');
+
 const requiredEnvVars = [
   'NODE_ENV',
   'PORT',
@@ -31,13 +33,13 @@ const validateEnv = () => {
   const missing = requiredEnvVars.filter((key) => !process.env[key]);
 
   if (missing.length > 0) {
-    console.error('❌ Missing required environment variables:');
-    missing.forEach((key) => console.error(`   - ${key}`));
-    console.error('Please check your .env file against .env.example');
+    logError('❌ Missing required environment variables:');
+    missing.forEach((key) => logError(`   - ${key}`));
+    logError('Please check your .env file against .env.example');
     process.exit(1);
   }
 
-  console.log('✅ Environment variables validated successfully');
+  logInfo('✅ Environment variables validated successfully');
 };
 
 module.exports = { validateEnv };

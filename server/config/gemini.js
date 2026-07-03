@@ -9,16 +9,22 @@
  */
 
 const { GoogleGenerativeAI } = require('@google/generative-ai');
+const config = require('./config');
+const { logInfo, logWarn } = require('../utils/loggerHelper');
 
 let geminiClient = null;
 
 const configureGemini = () => {
   try {
-    geminiClient = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-    console.log('✅ Google Gemini AI configured');
+    if (!config.gemini.apiKey) {
+      logWarn('⚠️  GEMINI_API_KEY is not configured. AI features will be unavailable.');
+      return;
+    }
+    geminiClient = new GoogleGenerativeAI(config.gemini.apiKey);
+    logInfo('✅ Google Gemini AI configured');
   } catch (error) {
-    console.warn(`⚠️  Gemini AI configuration failed: ${error.message}`);
-    console.warn('   AI features will be unavailable until resolved.');
+    logWarn(`⚠️  Gemini AI configuration failed: ${error.message}`);
+    logWarn('   AI features will be unavailable until resolved.');
   }
 };
 

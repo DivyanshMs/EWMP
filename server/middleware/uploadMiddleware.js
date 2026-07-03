@@ -11,21 +11,7 @@
 
 const multer = require('multer');
 const AppError = require('../utils/AppError');
-
-// ─── MIME Type Whitelists ──────────────────────────────────────────────────
-
-const DOCUMENT_MIME_TYPES = [
-  'application/pdf',
-  'image/jpeg',
-  'image/png',
-  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-];
-
-const IMAGE_MIME_TYPES = ['image/jpeg', 'image/png'];
-
-const RESUME_MIME_TYPES = ['application/pdf'];
-
-// ─── Multer Factory ────────────────────────────────────────────────────────
+const { ALLOWED_MIME_TYPES, FILE_UPLOAD_LIMITS, ERROR_CODES } = require('../config/constants');
 
 /**
  * Create a configured Multer middleware instance.
@@ -44,7 +30,7 @@ const createUploader = (allowedMimes, maxSizeMB) => {
         new AppError(
           400,
           `Invalid file type. Allowed types: ${allowedMimes.join(', ')}`,
-          'INVALID_FILE_TYPE'
+          ERROR_CODES.INVALID_FILE_TYPE
         ),
         false
       );
@@ -63,12 +49,15 @@ const createUploader = (allowedMimes, maxSizeMB) => {
 // ─── Pre-configured Upload Middleware Instances ────────────────────────────
 
 /** For employee documents and ticket attachments (10MB, all document types) */
-const uploadDocument = createUploader(DOCUMENT_MIME_TYPES, 10);
+const uploadDocument = createUploader(
+  ALLOWED_MIME_TYPES.DOCUMENTS,
+  FILE_UPLOAD_LIMITS.DOCUMENT_MAX_MB
+);
 
 /** For profile photos and asset images (5MB, images only) */
-const uploadPhoto = createUploader(IMAGE_MIME_TYPES, 5);
+const uploadPhoto = createUploader(ALLOWED_MIME_TYPES.IMAGES, FILE_UPLOAD_LIMITS.PHOTO_MAX_MB);
 
 /** For candidate resumes (10MB, PDF only) */
-const uploadResume = createUploader(RESUME_MIME_TYPES, 10);
+const uploadResume = createUploader(ALLOWED_MIME_TYPES.RESUMES, FILE_UPLOAD_LIMITS.RESUME_MAX_MB);
 
-module.exports = { uploadDocument, uploadPhoto, uploadResume };
+module.exports = { uploadDocument, uploadPhoto, uploadResume, createUploader };

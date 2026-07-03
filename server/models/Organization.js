@@ -3,4 +3,3 @@
 const mongoose = require('mongoose');
 const orgSchema = new mongoose.Schema({}, { timestamps: true });
 module.exports = mongoose.model('Organization', orgSchema);
-

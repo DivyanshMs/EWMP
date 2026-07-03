@@ -3,4 +3,3 @@
 // Authority: API_SPECIFICATION.md Section 5
 
 module.exports = {};
-

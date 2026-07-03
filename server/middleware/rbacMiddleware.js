@@ -11,21 +11,7 @@
  */
 
 const AppError = require('../utils/AppError');
-
-/**
- * Valid EWMP roles as defined in PROJECT_MASTER.md.
- */
-const ROLES = {
-  SUPER_ADMIN: 'SUPER_ADMIN',
-  ORG_ADMIN: 'ORG_ADMIN',
-  HR_MANAGER: 'HR_MANAGER',
-  FINANCE: 'FINANCE',
-  MANAGER: 'MANAGER',
-  TEAM_LEAD: 'TEAM_LEAD',
-  EMPLOYEE: 'EMPLOYEE',
-  IT_ADMIN: 'IT_ADMIN',
-  AUDITOR: 'AUDITOR',
-};
+const { ROLES, ERROR_CODES } = require('../config/constants');
 
 /**
  * Role check middleware factory.
@@ -40,7 +26,7 @@ const ROLES = {
 const checkRole = (allowedRoles) => {
   return (req, res, next) => {
     if (!req.user) {
-      return next(new AppError(401, 'Authentication required.', 'TOKEN_MISSING'));
+      return next(new AppError(401, 'Authentication required.', ERROR_CODES.TOKEN_MISSING));
     }
 
     if (!allowedRoles.includes(req.user.role)) {
@@ -48,7 +34,7 @@ const checkRole = (allowedRoles) => {
         new AppError(
           403,
           'You do not have permission to perform this action.',
-          'INSUFFICIENT_ROLE'
+          ERROR_CODES.INSUFFICIENT_ROLE
         )
       );
     }
