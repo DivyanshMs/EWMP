@@ -16,6 +16,7 @@ const addressSchema = new mongoose.Schema(
     state: { type: String, trim: true, maxlength: 100 },
     country: { type: String, trim: true, maxlength: 100 },
     pincode: { type: String, trim: true, maxlength: 10 },
+    postalCode: { type: String, trim: true, maxlength: 10 },
   },
   { _id: false }
 );
@@ -66,6 +67,11 @@ const organizationSchema = new mongoose.Schema(
       trim: true,
       default: null,
     },
+    logo: {
+      type: String,
+      trim: true,
+      default: null,
+    },
     employeeCount: {
       type: Number,
       default: 0,
@@ -80,6 +86,17 @@ const organizationSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
       default: null,
+    },
+    timezone: {
+      type: String,
+      trim: true,
+      default: 'Asia/Kolkata',
+    },
+    currency: {
+      type: String,
+      trim: true,
+      uppercase: true,
+      default: 'INR',
     },
     status: {
       type: String,

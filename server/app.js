@@ -72,12 +72,13 @@ app.get('/api/health', healthHandler);
 app.use('/api/auth', require('./routes/authRoutes'));
 
 // Phase 4A — Organization & Employees
-// app.use('/api/organizations', require('./routes/organizationRoutes'));
+app.use('/api/organizations', require('./routes/organizationRoutes'));
 // app.use('/api/departments', require('./routes/organizationRoutes'));
 // app.use('/api/designations', require('./routes/organizationRoutes'));
 // app.use('/api/locations', require('./routes/organizationRoutes'));
 // app.use('/api/shifts', require('./routes/organizationRoutes'));
-// app.use('/api/employees', require('./routes/employeeRoutes'));
+app.use('/api/employees', require('./routes/employeeRoutes'));
+
 
 // Phase 4B — Attendance & Leave
 // app.use('/api/attendance', require('./routes/attendanceRoutes'));
@@ -119,7 +120,7 @@ app.use('/api/auth', require('./routes/authRoutes'));
 
 // Cross-cutting
 // app.use('/api/audit-logs', require('./routes/reportRoutes'));
-// app.use('/api/settings', require('./routes/organizationRoutes'));
+app.use('/api/settings', require('./routes/organizationRoutes'));
 
 // ─── 7. 404 Handler for Unmatched Routes ────────────────────────────────────
 app.use(notFoundMiddleware);

@@ -64,4 +64,9 @@ const sendError = (res, statusCode, message, error = {}) => {
   });
 };
 
-module.exports = { sendSuccess, sendPaginatedSuccess, sendError };
+const formatResponse = sendSuccess;
+formatResponse.sendSuccess = sendSuccess;
+formatResponse.sendPaginatedSuccess = sendPaginatedSuccess;
+formatResponse.sendError = sendError;
+
+module.exports = formatResponse;

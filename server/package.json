@@ -5,7 +5,10 @@
     "format": "prettier --write .",
     "dev": "nodemon server.js",
     "start": "node server.js",
-    "seed:auth": "node scripts/seedAuth.js"
+    "seed": "node scripts/seedDemo.js",
+    "seed:demo": "node scripts/seedDemo.js",
+    "seed:auth": "node scripts/seedAuth.js",
+    "verify:employee": "node scripts/verifyEmployeeModule.js"
   },
   "description": "Enterprise Workforce Management Platform - Backend API",
   "type": "commonjs",

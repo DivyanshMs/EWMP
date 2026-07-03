@@ -25,7 +25,7 @@ const validateRequest = (schema) => {
 
     if (!result.success) {
       const fields = {};
-      result.error.errors.forEach((err) => {
+      result.error.issues.forEach((err) => {
         const field = err.path.join('.') || 'body';
         fields[field] = err.message;
       });
@@ -48,7 +48,7 @@ const validateQuery = (schema) => {
 
     if (!result.success) {
       const fields = {};
-      result.error.errors.forEach((err) => {
+      result.error.issues.forEach((err) => {
         const field = err.path.join('.') || 'query';
         fields[field] = err.message;
       });
@@ -72,7 +72,7 @@ const validateParams = (schema) => {
 
     if (!result.success) {
       const fields = {};
-      result.error.errors.forEach((err) => {
+      result.error.issues.forEach((err) => {
         const field = err.path.join('.') || 'params';
         fields[field] = err.message;
       });

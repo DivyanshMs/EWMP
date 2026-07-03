@@ -12,14 +12,25 @@ const Employee = require('../models/Employee');
 
 /**
  * Generates the next sequential employeeId for an organization.
- * Queries the last created employee to determine the next number.
+ * Queries all employees in org to determine the max existing ID number.
  * @param {string} organizationId - MongoDB ObjectId string
- * @returns {Promise<string>} Generated employeeId (e.g. 'EMP0042')
+ * @returns {Promise<string>} Generated employeeId (e.g. 'EMP0010')
  */
 const generateEmployeeId = async (organizationId) => {
-  // TODO: Implement after Employee model is defined (Phase 4A)
-  // Pattern: find last employee in org by employeeId, extract number, increment
-  throw new Error('generateEmployeeId: Not implemented. Implement in Phase 4A.');
+  const employees = await Employee.find({ organizationId }).select('employeeId').lean();
+  let maxNum = 0;
+  
+  employees.forEach((emp) => {
+    if (emp.employeeId && emp.employeeId.startsWith('EMP')) {
+      const numPart = parseInt(emp.employeeId.slice(3), 10);
+      if (!isNaN(numPart) && numPart > maxNum) {
+        maxNum = numPart;
+      }
+    }
+  });
+
+  const nextNum = maxNum + 1;
+  return `EMP${String(nextNum).padStart(4, '0')}`;
 };
 
 module.exports = generateEmployeeId;

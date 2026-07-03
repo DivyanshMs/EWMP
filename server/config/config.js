@@ -11,7 +11,7 @@ const config = {
   port: parseInt(process.env.PORT, 10) || 5000,
   clientUrl: process.env.CLIENT_URL || 'http://localhost:5173',
   db: {
-    uri: process.env.MONGODB_URI,
+    uri: process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/ewmp',
     options: {
       maxPoolSize: 10,
       serverSelectionTimeoutMS: 5000,
@@ -19,8 +19,8 @@ const config = {
     },
   },
   jwt: {
-    secret: process.env.JWT_SECRET,
-    refreshSecret: process.env.JWT_REFRESH_SECRET,
+    secret: process.env.JWT_SECRET || 'ewmp_dev_jwt_secret_key_change_in_production_2026',
+    refreshSecret: process.env.JWT_REFRESH_SECRET || 'ewmp_dev_refresh_secret_key_change_in_production_2026',
     accessExpiry: process.env.JWT_ACCESS_EXPIRY || '15m',
     refreshExpiry: process.env.JWT_REFRESH_EXPIRY || '7d',
   },
