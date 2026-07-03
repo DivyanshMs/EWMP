@@ -1,0 +1,23 @@
+{
+  "name": "ewmp",
+  "version": "1.0.0",
+  "description": "Enterprise Workforce Management Platform — MERN Stack + AI",
+  "private": true,
+  "scripts": {
+    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && npm run dev",
+    "install:server": "cd server && npm install",
+    "install:client": "cd client && npm install",
+    "install:all": "npm run install:server && npm run install:client",
+    "lint:server": "cd server && npm run lint",
+    "lint:client": "cd client && npm run lint",
+    "lint": "npm run lint:server && npm run lint:client",
+    "build:client": "cd client && npm run build"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "author": "EWMP Engineering Team",
+  "license": "MIT"
+}
