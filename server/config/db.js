@@ -6,6 +6,8 @@
  * Authority: ARCHITECTURE_REVISION.md Section 7.3
  *            DATABASE_DESIGN.md Section 3
  */
+const dns = require("dns");
+dns.setServers(["8.8.8.8", "1.1.1.1"]);
 
 const mongoose = require('mongoose');
 const config = require('./config');
