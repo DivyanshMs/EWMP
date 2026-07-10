@@ -91,7 +91,7 @@ const loadDefaultPlugins = () => {
   const assetPlugin = require('./assetPlugin');
   const documentPlugin = require('./documentPlugin');
   const notificationPlugin = require('./notificationPlugin');
-  const helpdeskPlugin = require('./helpdeskPlugin');
+  const helpdeskPlugin = require('./helpDeskPlugin');
 
   const defaults = [
     attendancePlugin, leavePlugin, payrollPlugin, employeePlugin,
