@@ -1,0 +1,23 @@
+meta {
+  name: 02 Generate Attendance Report
+  type: http
+  seq: 62
+}
+
+post {
+  url: {{baseUrl}}/reports/attendance
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "startDate": "2026-07-01",
+    "endDate": "2026-07-31"
+  }
+}
+

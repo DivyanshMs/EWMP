@@ -1,0 +1,36 @@
+meta {
+  name: 01 Clock In
+  type: http
+  seq: 25
+}
+
+post {
+  url: {{baseUrl}}/attendance/clock-in
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTQ3ZTUzYjFhZjU1MmI4ODFmYTRkMWIiLCJyb2xlIjoiRU1QTE9ZRUUiLCJvcmdhbml6YXRpb25JZCI6IjZhNDc5ZDAxNThkNDI3ZTk1ZGJjMzU2ZiIsImlhdCI6MTc4MzU5NjkwNCwiZXhwIjoxNzgzNTk3ODA0fQ.9OwlPjZ_bmwBzggVRvSDfLWcSJzNg_mkcq48GJCsUdw
+}
+
+body:json {
+  {
+    "clockInLocation": {
+      "type": "Point",
+      "coordinates": [
+        77.5946,
+        12.9716
+      ]
+    },
+    "deviceId": "mobile",
+    "ipAddress": "192.168.1.1"
+  }
+  
+}
+
+script:post-response {
+  if(res.body && res.body.data && res.body.data._id) {
+    bru.setEnvVar("attendanceId", res.body.data._id);
+  }
+}

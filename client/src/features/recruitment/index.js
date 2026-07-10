@@ -1,0 +1,10 @@
+export { RecruitmentModule } from './RecruitmentModule';
+export { default as RecruitmentDashboardPage } from './pages/RecruitmentDashboardPage';
+export { default as JobPositionsPage } from './pages/JobPositionsPage';
+export { default as JobDetailsPage } from './pages/JobDetailsPage';
+export { default as CandidateDirectoryPage } from './pages/CandidateDirectoryPage';
+export { default as CandidateProfilePage } from './pages/CandidateProfilePage';
+export { default as InterviewManagementPage } from './pages/InterviewManagementPage';
+export { default as RecruitmentPipelinePage } from './pages/RecruitmentPipelinePage';
+export { default as OfferManagementPage } from './pages/OfferManagementPage';
+export { default as RecruitmentAnalyticsPage } from './pages/RecruitmentAnalyticsPage';

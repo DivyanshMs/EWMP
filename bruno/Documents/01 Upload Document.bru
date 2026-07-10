@@ -1,0 +1,31 @@
+meta {
+  name: 01 Upload Document
+  type: http
+  seq: 52
+}
+
+post {
+  url: {{baseUrl}}/documents
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "title": "Company Policy",
+    "documentType": "Policy",
+    "employee": "{{employeeId}}",
+    "fileUrl": "https://example.com/policy.pdf"
+  }
+}
+
+script:post-response {
+  if(res.body && res.body.data && res.body.data._id) {
+  bru.setEnvVar("documentId", res.body.data._id);
+}
+}
+

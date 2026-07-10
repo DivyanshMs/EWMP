@@ -1,0 +1,16 @@
+meta {
+  name: 05 Get Payslips
+  type: http
+  seq: 41
+}
+
+get {
+  url: {{baseUrl}}/payslips
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+

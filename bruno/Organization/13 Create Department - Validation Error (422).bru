@@ -1,0 +1,22 @@
+meta {
+  name: 13 Create Department - Validation Error (422)
+  type: http
+  seq: 19
+}
+
+post {
+  url: {{baseUrl}}/departments
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "description": "Missing name and code"
+  }
+}
+

@@ -1,0 +1,16 @@
+meta {
+  name: 02 Get Payrolls
+  type: http
+  seq: 38
+}
+
+get {
+  url: {{baseUrl}}/payroll
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+

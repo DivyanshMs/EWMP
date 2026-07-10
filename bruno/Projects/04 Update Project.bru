@@ -1,0 +1,22 @@
+meta {
+  name: 04 Update Project
+  type: http
+  seq: 45
+}
+
+put {
+  url: {{baseUrl}}/projects/{{projectId}}
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "status": "Active"
+  }
+}
+

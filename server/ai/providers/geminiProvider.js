@@ -1,0 +1,235 @@
+/**
+ * geminiProvider.js — Phase 4: Gemini Provider Implementation
+ * Official @google/genai SDK wrapper extending BaseProvider.
+ * Implements initialize(), chat(), summarize(), and health().
+ *
+ * Authority: API_SPECIFICATION.md Section 10
+ *            AI Architecture Blueprint Section 7
+ */
+
+const { GoogleGenAI } = require('@google/genai');
+const BaseProvider = require('./baseProvider');
+const config = require('../../config/config');
+const AppError = require('../../utils/AppError');
+const { logInfo, logError, logWarn, logDebug } = require('../../utils/loggerHelper');
+
+class GeminiProvider extends BaseProvider {
+  constructor() {
+    super('gemini');
+    this.aiClient = null;
+    this.connected = false;
+  }
+
+  /**
+   * Initializes the @google/genai SDK client.
+   * Throws an operational AppError if configuration is missing or invalid.
+   */
+  initialize() {
+    if (!config || !config.gemini || !config.gemini.apiKey) {
+      this.connected = false;
+      logWarn('⚠️ GEMINI_API_KEY is missing from server configuration.');
+      throw new AppError(503, 'AI Service Unavailable: GEMINI_API_KEY is not configured.', 'AI_CONFIG_MISSING');
+    }
+
+    try {
+      this.aiClient = new GoogleGenAI({ apiKey: config.gemini.apiKey });
+      this.connected = true;
+      logInfo(`✅ Gemini SDK initialized successfully using model: ${config.gemini.model}`);
+      return true;
+    } catch (error) {
+      this.connected = false;
+      logError(`⚠️ Gemini SDK initialization failed: ${error.message}`);
+      throw new AppError(503, `AI Service Unavailable: Failed to initialize Gemini SDK (${error.message}).`, 'AI_INIT_ERROR');
+    }
+  }
+
+  /**
+   * Checks if the Gemini SDK client is connected and initialized.
+   * Attempts graceful initialization if not yet connected.
+   */
+  isConnected() {
+    if (!this.connected || !this.aiClient) {
+      try {
+        if (config && config.gemini && config.gemini.apiKey) {
+          this.initialize();
+        }
+      } catch (err) {
+        this.connected = false;
+      }
+    }
+    return Boolean(this.connected && this.aiClient);
+  }
+
+  /**
+   * Returns graceful health status information for the Gemini provider.
+   * Does not throw exceptions if unavailable.
+   */
+  health() {
+    const status = {
+      provider: 'Gemini',
+      model: (config && config.gemini && config.gemini.model) || 'gemini-2.5-flash',
+      connected: this.isConnected(),
+      configuredProvider: (config && config.ai && config.ai.provider) || 'gemini',
+      phase: 4,
+    };
+
+    if (!status.connected) {
+      status.status = 'Unavailable - API key missing or SDK initialization failed';
+    }
+
+    return status;
+  }
+
+  /**
+   * Internal execution engine for content generation.
+   * Implements timeouts, quota handling, error mapping, and sanitized logging.
+   *
+   * @param {string} prompt - Structured prompt string
+   * @param {string} taskType - Task classification for logging (e.g., 'CHAT', 'SUMMARIZE')
+   * @returns {Promise<string>} Generated text completion
+   */
+  async _generateContent(prompt, taskType = 'GENERIC') {
+    if (!prompt || typeof prompt !== 'string') {
+      throw new AppError(400, 'A valid prompt string is required to generate an AI response.', 'INVALID_PROMPT');
+    }
+
+    if (!this.connected || !this.aiClient) {
+      this.initialize();
+    }
+
+    const modelName = (config && config.gemini && config.gemini.model) || 'gemini-2.5-flash';
+    const promptLength = prompt.length;
+
+    logInfo(`AI Provider (${this.name}) Request Started`, {
+      provider: this.name,
+      taskType,
+      model: modelName,
+      promptLength,
+    });
+    logDebug(`AI Provider (${this.name}) Request Payload`, {
+      provider: this.name,
+      taskType,
+      model: modelName,
+      promptSnippet: prompt.slice(0, 100),
+    });
+
+    const startTime = Date.now();
+
+    try {
+      const timeoutPromise = new Promise((_, reject) => {
+        setTimeout(() => reject(new Error('TIMEOUT_ERROR')), 30000);
+      });
+
+      const response = await Promise.race([
+        this.aiClient.models.generateContent({
+          model: modelName,
+          contents: prompt,
+        }),
+        timeoutPromise,
+      ]);
+
+      const latencyMs = Date.now() - startTime;
+
+      logInfo(`AI Provider (${this.name}) Request Succeeded`, {
+        provider: this.name,
+        taskType,
+        model: modelName,
+        latencyMs,
+        success: true,
+      });
+
+      const reply = typeof response.text === 'function' ? response.text() : (response.text || (response.candidates && response.candidates[0] && response.candidates[0].content && response.candidates[0].content.parts && response.candidates[0].content.parts[0] && response.candidates[0].content.parts[0].text) || '');
+
+      if (!reply) {
+        logWarn(`AI Provider (${this.name}) returned an empty response text.`, { latencyMs, model: modelName });
+        return 'No response generated by AI Provider.';
+      }
+
+      return reply;
+    } catch (error) {
+      const latencyMs = Date.now() - startTime;
+      logError(`AI Provider (${this.name}) Request Failed`, {
+        provider: this.name,
+        taskType,
+        model: modelName,
+        latencyMs,
+        error: error.message,
+        success: false,
+      });
+
+      const errMsg = error.message || '';
+      const errStatus = error.status || error.statusCode || '';
+
+      // Handle Timeout
+      if (errMsg.includes('TIMEOUT_ERROR') || errMsg.includes('timeout') || errMsg.includes('DEADLINE_EXCEEDED')) {
+        throw new AppError(504, 'AI request timed out after 30 seconds. Please try again later.', 'AI_TIMEOUT_ERROR');
+      }
+
+      // Handle Quota / Rate Limit
+      if (
+        String(errStatus) === '429' ||
+        errMsg.includes('429') ||
+        errMsg.includes('RESOURCE_EXHAUSTED') ||
+        errMsg.toLowerCase().includes('quota') ||
+        errMsg.toLowerCase().includes('rate limit') ||
+        errMsg.toLowerCase().includes('too many requests')
+      ) {
+        throw new AppError(429, 'AI service quota exceeded or rate limit reached. Please try again later.', 'AI_QUOTA_EXCEEDED');
+      }
+
+      // Handle Invalid / Missing API Key or Permission Denied
+      if (
+        String(errStatus) === '401' ||
+        String(errStatus) === '403' ||
+        errMsg.includes('API_KEY_INVALID') ||
+        errMsg.toLowerCase().includes('invalid api key') ||
+        errMsg.includes('PERMISSION_DENIED')
+      ) {
+        throw new AppError(503, `AI Service Error: ${errMsg || 'Invalid API key or Permission Denied.'}`, 'AI_KEY_INVALID');
+      }
+
+      // Handle Network Failures
+      if (
+        errMsg.includes('ENOTFOUND') ||
+        errMsg.includes('ECONNREFUSED') ||
+        errMsg.includes('ETIMEDOUT') ||
+        errMsg.includes('fetch failed') ||
+        errMsg.toLowerCase().includes('network')
+      ) {
+        throw new AppError(503, 'AI Service Unavailable: Network failure connecting to AI provider.', 'AI_NETWORK_ERROR');
+      }
+
+      // Default Fallback
+      throw new AppError(503, `AI Service Unavailable: ${errMsg || 'Unknown provider error'}.`, 'AI_PROVIDER_UNAVAILABLE');
+    }
+  }
+
+  /**
+   * Generates a conversational chat response from a structured prompt.
+   * @param {string} prompt - Fully formatted prompt string
+   * @returns {Promise<string>} Generated text completion
+   */
+  async chat(prompt) {
+    return this._generateContent(prompt, 'CHAT');
+  }
+
+  /**
+   * Generates a summary completion from a structured prompt.
+   * @param {string} prompt - Fully formatted prompt string
+   * @returns {Promise<string>} Generated summary text
+   */
+  async summarize(prompt) {
+    return this._generateContent(prompt, 'SUMMARIZE');
+  }
+
+  /**
+   * Alias for generateContent for backwards compatibility.
+   * @param {string} prompt - Structured prompt string
+   * @returns {Promise<string>} Generated text completion
+   */
+  async generateResponse(prompt) {
+    return this._generateContent(prompt, 'GENERIC');
+  }
+}
+
+module.exports = GeminiProvider;

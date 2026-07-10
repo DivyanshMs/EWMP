@@ -1,0 +1,17 @@
+export { TasksModule } from './TasksModule';
+export * from './components/TaskBadges';
+export * from './components/TaskCards';
+export * from './components/TaskTables';
+export * from './components/TaskPanels';
+export * from './components/TaskDrawers';
+export * from './components/TaskEmptyStates';
+export * from './components/TaskLoadingStates';
+export * from './components/TaskErrorStates';
+export * from './pages/TaskDashboardPage';
+export * from './pages/TaskDirectoryPage';
+export * from './pages/KanbanBoardPage';
+export * from './pages/TaskDetailsPage';
+export * from './pages/CreateEditTaskPage';
+export * from './pages/TaskCalendarPage';
+export * from './pages/TeamWorkloadPage';
+export * from './pages/TaskAnalyticsPage';

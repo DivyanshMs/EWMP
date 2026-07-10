@@ -1,0 +1,16 @@
+meta {
+  name: 10 Get Shifts
+  type: http
+  seq: 16
+}
+
+get {
+  url: {{baseUrl}}/shifts
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+

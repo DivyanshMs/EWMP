@@ -1,0 +1,11 @@
+export { default as HelpDeskModule } from './HelpDeskModule';
+export * from './pages/HelpDeskDashboardPage';
+export * from './pages/TicketDirectoryPage';
+export * from './pages/CreateTicketPage';
+export * from './pages/TicketDetailsPage';
+export * from './pages/TicketAssignmentPage';
+export * from './pages/HelpDeskAnalyticsPage';
+export * from './components/HelpDeskBadges';
+export * from './components/HelpDeskCards';
+export * from './components/ConversationPanel';
+export * from './components/HelpDeskTables';

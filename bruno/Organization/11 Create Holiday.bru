@@ -1,0 +1,30 @@
+meta {
+  name: 11 Create Holiday
+  type: http
+  seq: 17
+}
+
+post {
+  url: {{baseUrl}}/holidays
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "name": "New Year",
+    "date": "2027-01-01",
+    "type": "Public"
+  }
+}
+
+script:post-response {
+  if(res.body && res.body.data && res.body.data._id) {
+  bru.setEnvVar("holidayId", res.body.data._id);
+}
+}
+

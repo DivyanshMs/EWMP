@@ -1,0 +1,31 @@
+meta {
+  name: 03 Apply For Leave
+  type: http
+  seq: 33
+}
+
+post {
+  url: {{baseUrl}}/leave-requests
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "leaveType": "{{leaveId}}",
+    "startDate": "2026-08-01",
+    "endDate": "2026-08-02",
+    "reason": "Fever"
+  }
+}
+
+script:post-response {
+  if(res.body && res.body.data && res.body.data._id) {
+  bru.setEnvVar("leaveId", res.body.data._id);
+}
+}
+

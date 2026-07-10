@@ -1,0 +1,23 @@
+meta {
+  name: 02 Update Current Organization
+  type: http
+  seq: 8
+}
+
+put {
+  url: {{baseUrl}}/organizations/current
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTQ3OWQwMjU4ZDQyN2U5NWRiYzM1NzAiLCJyb2xlIjoiU1VQRVJfQURNSU4iLCJvcmdhbml6YXRpb25JZCI6IjZhNDc5ZDAxNThkNDI3ZTk1ZGJjMzU2ZiIsImlhdCI6MTc4MzU5NTUyMiwiZXhwIjoxNzgzNTk2NDIyfQ.N0B1SjFi8pFsJAgnt8n5jCdgPNTw_nj6V5ifBK_6-LA
+}
+
+body:json {
+  {
+    "name": "EWMP Corp",
+    "email": "contact@ewmp.local",
+    "phone": "+1-800-555-0199"
+  }
+}

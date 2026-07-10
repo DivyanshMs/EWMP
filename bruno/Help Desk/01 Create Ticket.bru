@@ -1,0 +1,31 @@
+meta {
+  name: 01 Create Ticket
+  type: http
+  seq: 58
+}
+
+post {
+  url: {{baseUrl}}/tickets
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "title": "Laptop not starting",
+    "description": "Screen is blank",
+    "category": "IT",
+    "priority": "High"
+  }
+}
+
+script:post-response {
+  if(res.body && res.body.data && res.body.data._id) {
+  bru.setEnvVar("ticketId", res.body.data._id);
+}
+}
+

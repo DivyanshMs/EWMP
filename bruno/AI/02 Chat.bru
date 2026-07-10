@@ -1,0 +1,25 @@
+meta {
+  name: 02 Chat
+  type: http
+  seq: 68
+}
+
+post {
+  url: {{baseUrl}}/ai/chat
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTQ3ZTUzYjFhZjU1MmI4ODFmYTRkMWIiLCJyb2xlIjoiRU1QTE9ZRUUiLCJvcmdhbml6YXRpb25JZCI6IjZhNDc5ZDAxNThkNDI3ZTk1ZGJjMzU2ZiIsImlhdCI6MTc4MzY2NTA0NywiZXhwIjoxNzgzNjY1OTQ3fQ.adfYAg4wpYitONDybs-UxNApy5sCvsr0r3_dEURPPF4
+}
+
+body:json {
+  {
+      "message":"2+2?"
+  }
+}
+
+script:post-response {
+  if(res.body && res.body.data && res.body.data.conversationId) { bru.setEnvVar("conversationId", res.body.data.conversationId); }
+}

@@ -1,0 +1,22 @@
+meta {
+  name: 03 Mark As Read
+  type: http
+  seq: 57
+}
+
+patch {
+  url: {{baseUrl}}/notifications/mark-read
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "notificationIds": []
+  }
+}
+

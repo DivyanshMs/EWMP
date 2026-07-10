@@ -1,0 +1,24 @@
+meta {
+  name: 05 Correction Request
+  type: http
+  seq: 29
+}
+
+post {
+  url: {{baseUrl}}/attendance/{{attendanceId}}/correction
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "type": "ClockIn",
+    "suggestedTime": "2026-07-04T09:00:00Z",
+    "reason": "Forgot"
+  }
+}
+

@@ -1,0 +1,16 @@
+meta {
+  name: 02 Get Assets
+  type: http
+  seq: 50
+}
+
+get {
+  url: {{baseUrl}}/assets
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+

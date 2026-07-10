@@ -1,0 +1,33 @@
+meta {
+  name: 01 Create Asset
+  type: http
+  seq: 49
+}
+
+post {
+  url: {{baseUrl}}/assets
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "name": "MacBook Pro",
+    "type": "Laptop",
+    "serialNumber": "MBP12345",
+    "purchaseDate": "2026-01-10",
+    "cost": 2000,
+    "status": "Available"
+  }
+}
+
+script:post-response {
+  if(res.body && res.body.data && res.body.data._id) {
+  bru.setEnvVar("assetId", res.body.data._id);
+}
+}
+

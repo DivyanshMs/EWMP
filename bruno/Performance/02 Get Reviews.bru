@@ -1,0 +1,16 @@
+meta {
+  name: 02 Get Reviews
+  type: http
+  seq: 64
+}
+
+get {
+  url: {{baseUrl}}/performance
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+

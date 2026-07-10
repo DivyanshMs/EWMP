@@ -1,0 +1,21 @@
+meta {
+  name: 03 Summarize
+  type: http
+  seq: 69
+}
+
+post {
+  url: {{baseUrl}}/ai/summarize
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTQ3ZTUzYjFhZjU1MmI4ODFmYTRkMWIiLCJyb2xlIjoiRU1QTE9ZRUUiLCJvcmdhbml6YXRpb25JZCI6IjZhNDc5ZDAxNThkNDI3ZTk1ZGJjMzU2ZiIsImlhdCI6MTc4MzY2NTA0NywiZXhwIjoxNzgzNjY1OTQ3fQ.adfYAg4wpYitONDybs-UxNApy5sCvsr0r3_dEURPPF4
+}
+
+body:json {
+  {
+      "text": "What is Https"
+  }
+}

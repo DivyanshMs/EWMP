@@ -1,0 +1,23 @@
+meta {
+  name: 06 Approve Correction
+  type: http
+  seq: 30
+}
+
+patch {
+  url: {{baseUrl}}/attendance/{{attendanceId}}/correction/approve
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "status": "Approved",
+    "adminRemarks": "Approved"
+  }
+}
+

@@ -1,0 +1,37 @@
+meta {
+  name: 01 Create Review
+  type: http
+  seq: 63
+}
+
+post {
+  url: {{baseUrl}}/performance
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "employee": "{{employeeId}}",
+    "reviewer": "{{employeeId}}",
+    "reviewPeriod": "Q2 2026",
+    "goals": [
+      {
+        "title": "Ship V1",
+        "weightage": 100
+      }
+    ],
+    "status": "Draft"
+  }
+}
+
+script:post-response {
+  if(res.body && res.body.data && res.body.data._id) {
+  bru.setEnvVar("performanceReviewId", res.body.data._id);
+}
+}
+

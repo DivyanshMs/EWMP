@@ -1,0 +1,43 @@
+meta {
+  name: 01 Create Employee
+  type: http
+  seq: 20
+}
+
+post {
+  url: {{baseUrl}}/employees
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "firstName": "Jane",
+    "lastName": "Smith",
+    "email": "jane.smith@ewmp.local",
+    "password": "Password@123",
+    "gender": "Female",
+    "dateOfBirth": "1992-05-15",
+    "dateOfJoining": "2023-01-01",
+    "role": "EMPLOYEE",
+    "department": "{{departmentId}}",
+    "designation": "{{designationId}}",
+    "workLocation": "{{locationId}}",
+    "shift": "{{shiftId}}",
+    "employmentStatus": "Active",
+    "employmentType": "Full-Time",
+    "contactNumber": "+1-202-555-0144",
+    "basicSalary": 65000
+  }
+}
+
+script:post-response {
+  if(res.body && res.body.data && res.body.data._id) {
+  bru.setEnvVar("employeeId", res.body.data._id);
+}
+}
+

@@ -1,0 +1,16 @@
+meta {
+  name: 06 Get Designations
+  type: http
+  seq: 12
+}
+
+get {
+  url: {{baseUrl}}/designations
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+

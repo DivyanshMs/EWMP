@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-inter: 'Inter', system-ui, -apple-system, sans-serif;
+    --bg-surface: #faf8ff;
+    --text-primary: #191b23;
+  }
+
+  body {
+    font-family: var(--font-inter);
+    background-color: var(--bg-surface);
+    color: var(--text-primary);
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Precision Scrollbars for dense enterprise data tables */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #c3c6d7;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #737686;
+  }
+
+  /* Tables harmonization (Precision Enterprise) */
+  table {
+    width: 100%;
+    text-align: left;
+    border-collapse: collapse;
+  }
+  th {
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #434655;
+    background-color: #ededf9;
+    padding: 14px 16px;
+    border-bottom: 1px solid #e1e2ed;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  td {
+    font-size: 13px;
+    font-weight: 500;
+    color: #191b23;
+    padding: 14px 16px;
+    border-bottom: 1px solid rgba(225, 226, 237, 0.6);
+  }
+  tr {
+    transition: background-color 0.15s ease-in-out;
+  }
+  tr:hover {
+    background-color: #f3f3fe;
+  }
+
+  /* Dark mode table overrides */
+  .dark th {
+    background-color: #161616;
+    color: #9ca3af;
+    border-bottom-color: #262626;
+  }
+  .dark td {
+    color: #e5e7eb;
+    border-bottom-color: rgba(38, 38, 38, 0.6);
+  }
+  .dark tr:hover {
+    background-color: #181818;
+  }
+
+  /* Form Input & Select Harmonization */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="date"],
+  select,
+  textarea {
+    background-color: #ffffff;
+    border: 1px solid #c3c6d7;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #191b23;
+    padding: 10px 14px;
+    transition: all 0.15s ease-in-out;
+  }
+  input:focus,
+  select:focus,
+  textarea:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+  }
+
+  /* Dark mode input overrides */
+  .dark input[type="text"],
+  .dark input[type="email"],
+  .dark input[type="password"],
+  .dark input[type="number"],
+  .dark input[type="date"],
+  .dark select,
+  .dark textarea {
+    background-color: #111111;
+    border-color: #262626;
+    color: #ffffff;
+  }
+}
+
+/* Custom Utilities for Stitch Precision Enterprise Theme */
+@layer utilities {
+  .border-precision {
+    border: 1px solid #e1e2ed;
+  }
+  .bg-surface-stitch {
+    background-color: #faf8ff;
+  }
+  .text-on-surface {
+    color: #191b23;
+  }
+}

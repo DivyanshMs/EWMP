@@ -1,0 +1,32 @@
+meta {
+  name: 07 Create Location
+  type: http
+  seq: 13
+}
+
+post {
+  url: {{baseUrl}}/locations
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "name": "Headquarters",
+    "address": {
+      "city": "Bengaluru",
+      "country": "India"
+    },
+    "timezone": "Asia/Kolkata"
+  }
+}
+
+script:post-response {
+  if (res.body && res.body.data && res.body.data._id) {
+    bru.setEnvVar("locationId", res.body.data._id);
+  }
+}

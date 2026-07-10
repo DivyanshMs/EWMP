@@ -1,0 +1,15 @@
+meta {
+  name: 08 Delete History By Id
+  type: http
+  seq: 74
+}
+
+delete {
+  url: {{baseUrl}}/ai/history/{{aiHistoryId}}
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTQ3OWQwMjU4ZDQyN2U5NWRiYzM1NzAiLCJyb2xlIjoiU1VQRVJfQURNSU4iLCJvcmdhbml6YXRpb25JZCI6IjZhNDc5ZDAxNThkNDI3ZTk1ZGJjMzU2ZiIsImlhdCI6MTc4MzI4NDI4MCwiZXhwIjoxNzgzMjg1MTgwfQ.zxF6mdRu3T3KE_GkQDDlEQBH7BX6YO-zZOJrZ2KNr3w
+}

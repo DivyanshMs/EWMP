@@ -1,0 +1,16 @@
+meta {
+  name: 06 Get Leave Balances
+  type: http
+  seq: 36
+}
+
+get {
+  url: {{baseUrl}}/leave-balances
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+

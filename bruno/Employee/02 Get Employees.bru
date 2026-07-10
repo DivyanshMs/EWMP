@@ -1,0 +1,20 @@
+meta {
+  name: 02 Get Employees
+  type: http
+  seq: 21
+}
+
+get {
+  url: {{baseUrl}}/employees?page=1&limit=10
+  body: none
+  auth: bearer
+}
+
+params:query {
+  page: 1
+  limit: 10
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTQ3OWQwMjU4ZDQyN2U5NWRiYzM1NzAiLCJyb2xlIjoiU1VQRVJfQURNSU4iLCJvcmdhbml6YXRpb25JZCI6IjZhNDc5ZDAxNThkNDI3ZTk1ZGJjMzU2ZiIsImlhdCI6MTc4MzU5NTkyOSwiZXhwIjoxNzgzNTk2ODI5fQ._3xDnGSZrihahIKwPGto4emARQe9RIet97JsEA5-oRE
+}

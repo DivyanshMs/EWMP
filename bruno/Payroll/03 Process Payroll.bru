@@ -1,0 +1,22 @@
+meta {
+  name: 03 Process Payroll
+  type: http
+  seq: 39
+}
+
+patch {
+  url: {{baseUrl}}/payroll/{{payrollId}}/process
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "status": "Processed"
+  }
+}
+

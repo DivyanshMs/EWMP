@@ -1,0 +1,16 @@
+meta {
+  name: 05 Get Employee - Not Found (404)
+  type: http
+  seq: 24
+}
+
+get {
+  url: {{baseUrl}}/employees/000000000000000000000000
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+

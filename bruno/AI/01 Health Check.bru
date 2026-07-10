@@ -1,0 +1,15 @@
+meta {
+  name: 01 Health Check
+  type: http
+  seq: 67
+}
+
+get {
+  url: {{baseUrl}}/ai/health
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTQ3ZTUzYjFhZjU1MmI4ODFmYTRkMWIiLCJyb2xlIjoiRU1QTE9ZRUUiLCJvcmdhbml6YXRpb25JZCI6IjZhNDc5ZDAxNThkNDI3ZTk1ZGJjMzU2ZiIsImlhdCI6MTc4MzY2NTA0NywiZXhwIjoxNzgzNjY1OTQ3fQ.adfYAg4wpYitONDybs-UxNApy5sCvsr0r3_dEURPPF4
+}

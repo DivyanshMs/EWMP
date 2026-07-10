@@ -1,0 +1,10 @@
+export { ReportsModule } from './ReportsModule';
+export { ReportsDashboardPage } from './pages/ReportsDashboardPage';
+export { AttendanceReportsPage } from './pages/AttendanceReportsPage';
+export { PayrollReportsPage } from './pages/PayrollReportsPage';
+export { LeaveReportsPage } from './pages/LeaveReportsPage';
+export { PerformanceReportsPage } from './pages/PerformanceReportsPage';
+export { RecruitmentReportsPage } from './pages/RecruitmentReportsPage';
+export { ProjectReportsPage } from './pages/ProjectReportsPage';
+export { AssetReportsPage } from './pages/AssetReportsPage';
+export { ExecutiveAnalyticsPage } from './pages/ExecutiveAnalyticsPage';

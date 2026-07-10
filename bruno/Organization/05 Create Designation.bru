@@ -1,0 +1,29 @@
+meta {
+  name: 05 Create Designation
+  type: http
+  seq: 11
+}
+
+post {
+  url: {{baseUrl}}/designations
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "title": "Software Engineer",
+    "level": "L1",
+    "departmentId": "{{departmentId}}"
+  }
+}
+
+script:post-response {
+  if (res.body && res.body.data && res.body.data._id) {
+    bru.setEnvVar("designationId", res.body.data._id);
+  }
+}

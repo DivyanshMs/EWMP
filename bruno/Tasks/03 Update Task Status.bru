@@ -1,0 +1,22 @@
+meta {
+  name: 03 Update Task Status
+  type: http
+  seq: 48
+}
+
+patch {
+  url: {{baseUrl}}/tasks/{{taskId}}/status
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "status": "InProgress"
+  }
+}
+

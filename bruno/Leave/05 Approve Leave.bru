@@ -1,0 +1,23 @@
+meta {
+  name: 05 Approve Leave
+  type: http
+  seq: 35
+}
+
+patch {
+  url: {{baseUrl}}/leave-requests/{{leaveId}}/approve
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "status": "Approved",
+    "adminRemarks": "Okay"
+  }
+}
+

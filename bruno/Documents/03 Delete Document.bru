@@ -1,0 +1,16 @@
+meta {
+  name: 03 Delete Document
+  type: http
+  seq: 54
+}
+
+delete {
+  url: {{baseUrl}}/documents/{{documentId}}
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+

@@ -1,0 +1,16 @@
+meta {
+  name: 03 Get My Attendance
+  type: http
+  seq: 27
+}
+
+get {
+  url: {{baseUrl}}/attendance/my
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+

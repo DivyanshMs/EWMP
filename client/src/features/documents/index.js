@@ -1,0 +1,10 @@
+export { default as DocumentsModule } from './DocumentsModule';
+export * from './pages/DocumentDashboardPage';
+export * from './pages/DocumentLibraryPage';
+export * from './pages/DocumentDetailsPage';
+export * from './pages/UploadDocumentPage';
+export * from './pages/EmployeeDocumentsPage';
+export * from './pages/OrganizationDocumentsPage';
+export * from './pages/VerificationCenterPage';
+export * from './pages/VersionHistoryPage';
+export * from './pages/DocumentAnalyticsPage';

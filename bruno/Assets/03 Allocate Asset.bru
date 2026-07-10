@@ -1,0 +1,25 @@
+meta {
+  name: 03 Allocate Asset
+  type: http
+  seq: 51
+}
+
+post {
+  url: {{baseUrl}}/asset-allocations
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "asset": "{{assetId}}",
+    "employee": "{{employeeId}}",
+    "allocationDate": "2026-07-06",
+    "condition": "New"
+  }
+}
+

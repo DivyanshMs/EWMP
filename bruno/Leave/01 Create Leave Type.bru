@@ -1,0 +1,32 @@
+meta {
+  name: 01 Create Leave Type
+  type: http
+  seq: 31
+}
+
+post {
+  url: {{baseUrl}}/leave-types
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "name": "Sick Leave",
+    "code": "SL",
+    "description": "For illness",
+    "daysPerYear": 10,
+    "isPaid": true
+  }
+}
+
+script:post-response {
+  if(res.body && res.body.data && res.body.data._id) {
+  bru.setEnvVar("leaveId", res.body.data._id);
+}
+}
+

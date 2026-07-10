@@ -1,0 +1,30 @@
+meta {
+  name: 01 Run Payroll
+  type: http
+  seq: 37
+}
+
+post {
+  url: {{baseUrl}}/payroll
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "month": 7,
+    "year": 2026,
+    "type": "Regular"
+  }
+}
+
+script:post-response {
+  if(res.body && res.body.data && res.body.data._id) {
+  bru.setEnvVar("payrollId", res.body.data._id);
+}
+}
+

@@ -1,0 +1,29 @@
+meta {
+  name: 03 Create Department
+  type: http
+  seq: 9
+}
+
+post {
+  url: {{baseUrl}}/departments
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTQ3OWQwMjU4ZDQyN2U5NWRiYzM1NzAiLCJyb2xlIjoiU1VQRVJfQURNSU4iLCJvcmdhbml6YXRpb25JZCI6IjZhNDc5ZDAxNThkNDI3ZTk1ZGJjMzU2ZiIsImlhdCI6MTc4MzMzOTUwNywiZXhwIjoxNzgzMzQwNDA3fQ.9VCPUWXvC-m7sfJG0Jc6bSV9Z4--EQEZAeu2iVfI76Y
+}
+
+body:json {
+  {
+    "name": "Engineering",
+    "code": "ENGG",
+    "description": "Software Engineering"
+  }
+}
+
+script:post-response {
+  if (res.body && res.body.data && res.body.data._id) {
+    bru.setEnvVar("departmentId", res.body.data._id);
+  }
+}

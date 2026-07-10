@@ -1,0 +1,29 @@
+meta {
+  name: 04 Generate Payslip
+  type: http
+  seq: 40
+}
+
+post {
+  url: {{baseUrl}}/payslips
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "employee": "{{employeeId}}",
+    "month": 7,
+    "year": 2026,
+    "basicSalary": 65000,
+    "allowances": [],
+    "deductions": [],
+    "netSalary": 65000,
+    "payroll": "{{payrollId}}"
+  }
+}
+

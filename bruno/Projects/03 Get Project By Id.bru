@@ -1,0 +1,16 @@
+meta {
+  name: 03 Get Project By Id
+  type: http
+  seq: 44
+}
+
+get {
+  url: {{baseUrl}}/projects/{{projectId}}
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+

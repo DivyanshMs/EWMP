@@ -1,0 +1,33 @@
+meta {
+  name: 01 Create Job
+  type: http
+  seq: 65
+}
+
+post {
+  url: {{baseUrl}}/recruitment/jobs
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "title": "Frontend Developer",
+    "department": "{{departmentId}}",
+    "location": "{{locationId}}",
+    "type": "Full-Time",
+    "experience": "2-4 years",
+    "requirements": "React, Vue"
+  }
+}
+
+script:post-response {
+  if(res.body && res.body.data && res.body.data._id) {
+  bru.setEnvVar("jobId", res.body.data._id);
+}
+}
+

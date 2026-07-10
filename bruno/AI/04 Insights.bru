@@ -1,0 +1,21 @@
+meta {
+  name: 04 Insights
+  type: http
+  seq: 70
+}
+
+post {
+  url: {{baseUrl}}/ai/insights
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTQ3OWQwMjU4ZDQyN2U5NWRiYzM1NzAiLCJyb2xlIjoiU1VQRVJfQURNSU4iLCJvcmdhbml6YXRpb25JZCI6IjZhNDc5ZDAxNThkNDI3ZTk1ZGJjMzU2ZiIsImlhdCI6MTc4MzU5NjUyNSwiZXhwIjoxNzgzNTk3NDI1fQ.TDb-4kmP7QM9HEyouqi9PKr-5mykxatd2beSErIASF8
+}
+
+body:json {
+  {
+    "context": "Attendance data..."
+  }
+}

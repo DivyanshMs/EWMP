@@ -1,0 +1,16 @@
+meta {
+  name: 12 Get Holidays
+  type: http
+  seq: 18
+}
+
+get {
+  url: {{baseUrl}}/holidays
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+

@@ -1,0 +1,34 @@
+meta {
+  name: 01 Create Project
+  type: http
+  seq: 42
+}
+
+post {
+  url: {{baseUrl}}/projects
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTQ3OWQwMjU4ZDQyN2U5NWRiYzM1NzAiLCJyb2xlIjoiU1VQRVJfQURNSU4iLCJvcmdhbml6YXRpb25JZCI6IjZhNDc5ZDAxNThkNDI3ZTk1ZGJjMzU2ZiIsImlhdCI6MTc4MzU5NjUyNSwiZXhwIjoxNzgzNTk3NDI1fQ.TDb-4kmP7QM9HEyouqi9PKr-5mykxatd2beSErIASF8
+}
+
+body:json {
+   
+  "name": "EWMP Implementation", 
+  "description": "Rollout of new HRMS", 
+  "clientName": "Internal", 
+  "startDate": "2026-07-01", 
+  "status": "Planning", 
+  "priority": "High", 
+  "budget": 100000, 
+  "teamMembers": [ "{{employeeId}}" ] 
+}
+
+script:post-response {
+   
+  if(res.body && res.body.data && res.body.data._id) { 
+    bru.setEnvVar("projectId", res.body.data._id); 
+  } 
+}

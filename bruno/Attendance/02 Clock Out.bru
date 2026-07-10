@@ -1,0 +1,27 @@
+meta {
+  name: 02 Clock Out
+  type: http
+  seq: 26
+}
+
+patch {
+  url: {{baseUrl}}/attendance/clock-out
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTQ3OWQwMjU4ZDQyN2U5NWRiYzM1NzAiLCJyb2xlIjoiU1VQRVJfQURNSU4iLCJvcmdhbml6YXRpb25JZCI6IjZhNDc5ZDAxNThkNDI3ZTk1ZGJjMzU2ZiIsImlhdCI6MTc4MzU5NTkyOSwiZXhwIjoxNzgzNTk2ODI5fQ._3xDnGSZrihahIKwPGto4emARQe9RIet97JsEA5-oRE
+}
+
+body:json {
+  {
+    "clockOutLocation": {
+      "type": "Point",
+      "coordinates": [
+        77.5946,
+        12.9716
+      ]
+    }
+  }
+}

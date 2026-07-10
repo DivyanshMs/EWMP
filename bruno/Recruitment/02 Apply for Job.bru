@@ -1,0 +1,33 @@
+meta {
+  name: 02 Apply for Job
+  type: http
+  seq: 66
+}
+
+post {
+  url: {{baseUrl}}/recruitment/candidates
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "job": "{{jobId}}",
+    "firstName": "Alice",
+    "lastName": "Wonder",
+    "email": "alice@example.com",
+    "phone": "1234567890",
+    "resumeUrl": "https://example.com/resume.pdf"
+  }
+}
+
+script:post-response {
+  if(res.body && res.body.data && res.body.data._id) {
+  bru.setEnvVar("candidateId", res.body.data._id);
+}
+}
+

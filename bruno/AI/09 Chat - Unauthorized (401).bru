@@ -1,0 +1,18 @@
+meta {
+  name: 09 Chat - Unauthorized (401)
+  type: http
+  seq: 75
+}
+
+post {
+  url: {{baseUrl}}/ai/chat
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "message": "Hello"
+  }
+}
+
